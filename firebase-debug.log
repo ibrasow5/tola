@@ -1,0 +1,74 @@
+[debug] [2024-06-08T21:49:41.672Z] ----------------------------------------------------------------------
+[debug] [2024-06-08T21:49:41.677Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-06-08T21:49:41.678Z] CLI Version:   13.11.2
+[debug] [2024-06-08T21:49:41.678Z] Platform:      win32
+[debug] [2024-06-08T21:49:41.679Z] Node Version:  v22.1.0
+[debug] [2024-06-08T21:49:41.679Z] Time:          Sat Jun 08 2024 21:49:41 GMT+0000 (heure moyenne de Greenwich)
+[debug] [2024-06-08T21:49:41.679Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-06-08T21:49:41.694Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-06-08T21:49:41.694Z] > authorizing via signed-in user (ibrahimandendesow@esp.sn)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\dell\Documents\Master GLSI\IPDL\Projet IPDL\tola
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-06-08T21:55:48.795Z] ----------------------------------------------------------------------
+[debug] [2024-06-08T21:55:48.799Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-06-08T21:55:48.800Z] CLI Version:   13.11.2
+[debug] [2024-06-08T21:55:48.800Z] Platform:      win32
+[debug] [2024-06-08T21:55:48.800Z] Node Version:  v22.1.0
+[debug] [2024-06-08T21:55:48.800Z] Time:          Sat Jun 08 2024 21:55:48 GMT+0000 (heure moyenne de Greenwich)
+[debug] [2024-06-08T21:55:48.801Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-06-08T21:55:48.817Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-06-08T21:55:48.818Z] > authorizing via signed-in user (ibrahimandendesow@esp.sn)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\dell\Documents\Master GLSI\IPDL\Projet IPDL\tola
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2024-06-08T21:59:09.753Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2024-06-08T21:59:09.753Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"projetipdl","name":"projetipdl"}
+[debug] [2024-06-08T21:59:10.496Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 200
+[debug] [2024-06-08T21:59:10.496Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"name":"operations/cp.7303785292187603932"}
+[debug] [2024-06-08T21:59:10.498Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.7303785292187603932 [none]
+[debug] [2024-06-08T21:59:11.826Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.7303785292187603932 200
+[debug] [2024-06-08T21:59:11.826Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.7303785292187603932 {"name":"operations/cp.7303785292187603932","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","ready":true},"done":true,"error":{"code":9,"message":"Callers must accept Terms of Service","details":[{"@type":"type.googleapis.com/google.rpc.PreconditionFailure","violations":[{"type":"TOS","subject":"cloud","description":"Callers must accept Terms of Service"}]}]}}
+[debug] [2024-06-08T21:59:12.367Z] FirebaseError: Callers must accept Terms of Service
+    at OperationPoller.poll (C:\Users\dell\AppData\Roaming\nvm\v22.1.0\node_modules\firebase-tools\lib\operation-poller.js:24:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async createCloudProject (C:\Users\dell\AppData\Roaming\nvm\v22.1.0\node_modules\firebase-tools\lib\management\projects.js:186:29)
+    at async createFirebaseProjectAndLog (C:\Users\dell\AppData\Roaming\nvm\v22.1.0\node_modules\firebase-tools\lib\management\projects.js:45:9)
+    at async promptAndCreateNewProject (C:\Users\dell\AppData\Roaming\nvm\v22.1.0\node_modules\firebase-tools\lib\init\features\project.js:32:12)
+    at async doSetup (C:\Users\dell\AppData\Roaming\nvm\v22.1.0\node_modules\firebase-tools\lib\init\features\project.js:88:27)
+    at async init (C:\Users\dell\AppData\Roaming\nvm\v22.1.0\node_modules\firebase-tools\lib\init\index.js:39:9)
+[error] 
+[error] Error: Failed to create project. See firebase-debug.log for more info.
