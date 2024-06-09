@@ -1,20 +1,11 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import { auth } from '../firebase';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth.js'; // Assurez-vous d'avoir un hook d'authentification
 
-function PrivateRoute({ component: Component, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        auth.currentUser ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/login" />
-        )
-      }
-    />
-  );
-}
+const PrivateRoute = () => {
+  const { isAuthenticated } = useAuth();
+
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+};
 
 export default PrivateRoute;

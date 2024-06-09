@@ -1,19 +1,27 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Signup from './components/Signup';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login';
+import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
+import { AuthProvider } from './hooks/useAuth.js';
+import Home from './Home';
 
-function App() {
+const App = () => {
   return (
-    <Router>
-      <Switch>
-        <Route path="/signup" component={Signup} />
-        <Route path="/login" component={Login} />
-        <PrivateRoute path="/dashboard" component={Dashboard} />
-      </Switch>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+        <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
-}
+};
 
 export default App;
