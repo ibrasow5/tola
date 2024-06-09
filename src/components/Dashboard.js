@@ -1,24 +1,18 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebase';
+import React, { useEffect } from 'react';
 
 function Dashboard() {
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      await auth.signOut();
-      navigate('/login'); 
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
-  };
-
   return (
+    <>
+      <header className="home-header">
+        <h1 className="home-title">Bienvenue sur Tola</h1>
+      </header>
     <div>
-      <h1>Dashboard</h1>
-      <button onClick={handleLogout}>Logout</button>
+        <>
+          <h1>Dashboard</h1>
+          {/* Ajoutez ici le contenu de votre tableau de bord */}
+        </>
     </div>
+    </>
   );
 }
 

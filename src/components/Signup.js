@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { auth, firestore } from '../firebase';
 
 function Signup() {
   const [email, setEmail] = useState('');
@@ -11,12 +11,8 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-      await firestore.collection('users').doc(userCredential.user.uid).set({
-        email,
-        themes
-      });
-      navigate('/dashboard'); // Rediriger vers le dashboard
+      await axios.post('http://localhost:5000/signup', { email, password, themes });
+      navigate('/login');
     } catch (error) {
       console.error("Error signing up:", error);
     }
@@ -30,44 +26,53 @@ function Signup() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Signup</h1>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
-      <div>
-        <h3>Select your themes of knowledge:</h3>
-        <label>
-          <input type="checkbox" value="math" onChange={handleThemeChange} />
-          Math
-        </label>
-        <label>
-          <input type="checkbox" value="science" onChange={handleThemeChange} />
-          Science
-        </label>
-        <label>
-          <input type="checkbox" value="history" onChange={handleThemeChange} />
-          History
-        </label>
-        <label>
-          <input type="checkbox" value="literature" onChange={handleThemeChange} />
-          Literature
-        </label>
-        {/* Ajoutez d'autres thèmes ici */}
-      </div>
-      <button type="submit">Sign Up</button>
-    </form>
+    <>
+      <header className="home-header">
+        <h1 className="home-title">Bienvenue sur Tola</h1>
+      </header>
+      <main className="auth-form-container">
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <h1 className="auth-form-title">S'inscrire</h1>
+          <input
+            className="auth-form-input"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+          />
+          <input
+            className="auth-form-input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Mot de passe"
+            required
+          />
+          <div className="theme-selection">
+            <h3>Sélectionner vos thèmes de connaissances</h3>
+            <label className="theme-label">
+              <input className="theme-checkbox" type="checkbox" value="math" onChange={handleThemeChange} />
+              <span className="theme">Maths</span>
+            </label>
+            <label className="theme-label">
+              <input className="theme-checkbox" type="checkbox" value="science" onChange={handleThemeChange} />
+              <span className="theme">Science</span>
+            </label>
+            <label className="theme-label">
+              <input className="theme-checkbox" type="checkbox" value="history" onChange={handleThemeChange} />
+              <span className="theme">Histoire</span>
+            </label>
+            <label className="theme-label">
+              <input className="theme-checkbox" type="checkbox" value="literature" onChange={handleThemeChange} />
+              <span className="theme">Littérature</span>
+            </label>
+          </div>
+
+          <button className="auth-form-button" type="submit">S'inscrire</button>
+        </form>
+      </main>
+    </>
   );
 }
 

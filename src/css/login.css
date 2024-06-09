@@ -1,0 +1,80 @@
+/* Container pour le formulaire */
+.auth-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Permet de centrer le formulaire verticalement */
+}
+
+/* Formulaire d'authentification */
+.auth-form {
+    background-color: #333; /* Couleur de fond */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Ombre portée */
+    max-width: 400px; /* Largeur maximale du formulaire */
+    width: 100%;
+}
+
+/* Titre du formulaire */
+.auth-form-title {
+    color: #ff0000; /* Couleur du titre */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Champ de saisie */
+.auth-form-input {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #555; /* Couleur de fond */
+    color: #fff; /* Couleur du texte */
+}
+
+/* Bouton de soumission */
+.auth-form-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ff0000; /* Couleur de fond */
+    color: #fff; /* Couleur du texte */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Style au survol du bouton */
+.auth-form-button:hover {
+    background-color: #cc0000; /* Couleur de fond au survol */
+}
+
+/* Message d'erreur */
+.auth-form-error {
+    color: #ff0000; /* Couleur du texte d'erreur */
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Style pour le conteneur des thèmes */
+.theme-selection {
+    margin-top: 20px;
+  }
+  
+  /* Style pour les libellés des thèmes */
+  .theme-label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  /* Style pour les cases à cocher */
+  .theme-checkbox {
+    margin-right: 5px; /* Espacement entre la case à cocher et le libellé */
+  }
+  
+  /* Style pour les thèmes */
+  .theme {
+    margin-right: 10px; /* Espacement entre les thèmes */
+  }
