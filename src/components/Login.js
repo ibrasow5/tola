@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../css/login.css';
+import Logo from '../Tola5.png';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -30,7 +31,9 @@ function Login() {
   return (
     <>
       <header className="home-header">
-        <h1 className="home-title">Bienvenue sur Tola</h1>
+      <div className="logo-container">
+          <img src={Logo} alt="Logo Tola" className="logo" width="100" height="auto" />
+        </div>
       </header>
       <main className="auth-form-container">
         <form className="auth-form" onSubmit={handleSubmit}>
