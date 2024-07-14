@@ -26,15 +26,16 @@ function Dashboard() {
       </header>
     <div>
         <>
-          <h1>Dashboard</h1>
           <div className="dashboard-main">
-            <PostQuestion />
-            <div className="questions-list">
-              {questions.map(question => (
-                <Question key={question.id} question={question} />
-              ))}
+            <div className="post-question-container">
+              <PostQuestion />
             </div>
-          </div>
+              <div className="questions-list">
+                {questions.map(question => (
+                  <Question key={question.id} question={question} />
+                ))}
+              </div>
+            </div>
         </>
     </div>
     </>
