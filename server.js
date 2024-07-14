@@ -73,6 +73,76 @@ app.post('/login', async (req, res) => {
   });
 });
 
+// Post a question
+app.post('/questions', (req, res) => {
+  const { userId, title, body } = req.body;
+  const sql = 'INSERT INTO questions (user_id, title, body) VALUES (?, ?, ?)';
+  db.query(sql, [userId, title, body], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error posting question' });
+    }
+    res.status(201).json({ message: 'Question posted successfully' });
+  });
+});
+
+// Post an answer
+app.post('/answers', (req, res) => {
+  const { userId, questionId, body } = req.body;
+  const sql = 'INSERT INTO answers (user_id, question_id, body) VALUES (?, ?, ?)';
+  db.query(sql, [userId, questionId, body], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error posting answer' });
+    }
+    res.status(201).json({ message: 'Answer posted successfully' });
+  });
+});
+
+// Post a comment
+app.post('/comments', (req, res) => {
+  const { userId, answerId, body } = req.body;
+  const sql = 'INSERT INTO comments (user_id, answer_id, body) VALUES (?, ?, ?)';
+  db.query(sql, [userId, answerId, body], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error posting comment' });
+    }
+    res.status(201).json({ message: 'Comment posted successfully' });
+  });
+});
+
+// Vote on a question or answer
+app.post('/votes', (req, res) => {
+  const { userId, type, id, voteType } = req.body;
+  const sql = `INSERT INTO votes (user_id, ${type}_id, vote_type) VALUES (?, ?, ?)`;
+  db.query(sql, [userId, id, voteType], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error voting' });
+    }
+    res.status(201).json({ message: 'Vote recorded successfully' });
+  });
+});
+
+// Get questions with answers and comments
+app.get('/questions', (req, res) => {
+  const sql = `
+    SELECT q.id, q.title, q.body, u.email AS user_email,
+           a.id AS answer_id, a.body AS answer_body, a.user_id AS answer_user_id,
+           c.id AS comment_id, c.body AS comment_body, c.user_id AS comment_user_id
+    FROM questions q
+    LEFT JOIN users u ON q.user_id = u.id
+    LEFT JOIN answers a ON q.id = a.question_id
+    LEFT JOIN comments c ON a.id = c.answer_id
+    ORDER BY q.id DESC, a.id ASC, c.id ASC;
+  `;
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error("Error fetching questions:", err);
+      res.status(500).send('Server error');
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

@@ -1,0 +1,34 @@
+  .dashboard-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
+  }
+  
+  .questions-list {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .question {
+    background-color: #ffffff;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .question-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 10px;
+  }
+  
+  .question-body {
+    font-size: 16px;
+    color: #555555;
+    margin-bottom: 20px;
+  }

@@ -1,7 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from "react";
 import Logo from '../Tola5.png';
+import axios from 'axios';
+import PostQuestion from './PostQuestion';
+import PostAnswer from './PostAnswer';
+import PostComment from './PostComment';
+import Question from './Question';
+import '../css/Dashboard.css';
+
 
 function Dashboard() {
+  const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/questions')
+      .then(response => setQuestions(response.data))
+      .catch(error => console.error('Error fetching questions:', error));
+  }, []);
+
   return (
     <>
       <header className="home-header">
@@ -12,7 +27,14 @@ function Dashboard() {
     <div>
         <>
           <h1>Dashboard</h1>
-          {/* Ajoutez ici le contenu de votre tableau de bord */}
+          <div className="dashboard-main">
+            <PostQuestion />
+            <div className="questions-list">
+              {questions.map(question => (
+                <Question key={question.id} question={question} />
+              ))}
+            </div>
+          </div>
         </>
     </div>
     </>
