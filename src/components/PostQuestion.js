@@ -18,10 +18,10 @@ const PostQuestion = () => {
     const questionData = {
       title: title,
       body: body,
-      userId: userId, // Inclure user_id dans les données envoyées
+      userId: userId, 
     };
 
-    console.log('Données envoyées:', questionData); // Ajout de console.log pour déboguer
+    console.log('Données envoyées:', questionData); 
 
     try {
       const response = await fetch('http://localhost:5000/questions', {
@@ -35,7 +35,7 @@ const PostQuestion = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        console.error('Erreur de réponse:', data); // Ajout de console.log pour déboguer la réponse
+        console.error('Erreur de réponse:', data); 
         throw new Error(data.error || 'Something went wrong');
       }
 
