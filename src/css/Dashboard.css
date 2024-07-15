@@ -46,6 +46,13 @@
   .question-item p {
     margin: 10px 0;
   }
+
+  .question-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
+  }
   
   .answers {
     margin-top: 10px;
@@ -109,6 +116,16 @@
   }
   
   .vote-container {
-    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .upvote {
+    background-color: green;
+  }
+
+  .downvote {
+    background-color: red;
   }
   

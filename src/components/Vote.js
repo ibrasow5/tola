@@ -24,8 +24,8 @@ function Vote({ userId, type, id }) {
 
   return (
     <div className="vote-container">
-      <button onClick={() => handleVote('upvote')}>Upvote ({votes.upvotes})</button>
-      <button onClick={() => handleVote('downvote')}>Downvote ({votes.downvotes})</button>
+      <button className="upvote" onClick={() => handleVote('upvote')}>Upvote ({votes.upvotes})</button>
+      <button className="downvote" onClick={() => handleVote('downvote')}>Downvote ({votes.downvotes})</button>
     </div>
   );
 }
