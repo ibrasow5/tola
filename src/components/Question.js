@@ -9,7 +9,7 @@ function Question({ question }) {
   const [showAnswerForm, setShowAnswerForm] = useState(false);
 
   const handleTitleClick = () => {
-    navigate.push(`/questions/${question.id}`);
+    navigate(`/questions/${question.id}`);
   };
 
   const toggleAnswerForm = () => setShowAnswerForm(!showAnswerForm);
