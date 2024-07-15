@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import '../css/Dashboard.css';
 
 function Vote({ answerId }) {
   const handleVote = async (voteType) => {
