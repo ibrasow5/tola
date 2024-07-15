@@ -128,4 +128,9 @@
   .downvote {
     background-color: red;
   }
+
+  .error {
+    color: red;
+    margin-bottom: 10px;
+  }
   

@@ -6,7 +6,9 @@ const app = express();
 const port = 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000' // Assurez-vous que cette origine correspond à celle de votre frontend
+}));
 app.use(express.json());
 
 // Database connection
@@ -76,6 +78,10 @@ app.post('/login', async (req, res) => {
 // Post a question
 app.post('/questions', (req, res) => {
   const { userId, title, body } = req.body;
+   // Vérifiez que tous les champs nécessaires sont fournis
+   if (!userId || !title || !body) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
   const sql = 'INSERT INTO questions (user_id, title, body) VALUES (?, ?, ?)';
   db.query(sql, [userId, title, body], (err, result) => {
     if (err) {
