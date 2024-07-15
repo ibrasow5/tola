@@ -77,13 +77,14 @@ app.post('/login', async (req, res) => {
 
 // Post a question
 app.post('/questions', (req, res) => {
-  const { userId, title, body } = req.body;
+  console.log('Données reçues :', req.body);
+  const { title, body, userId } = req.body;
    // Vérifiez que tous les champs nécessaires sont fournis
-   if (!userId || !title || !body) {
+   if (!title || !body || !userId) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
-  const sql = 'INSERT INTO questions (user_id, title, body) VALUES (?, ?, ?)';
-  db.query(sql, [userId, title, body], (err, result) => {
+  const sql = 'INSERT INTO questions (title, body, user_id) VALUES (?, ?, ?)';
+  db.query(sql, [title, body, userId], (err, result) => {
     if (err) {
       return res.status(500).json({ error: 'Error posting question' });
     }

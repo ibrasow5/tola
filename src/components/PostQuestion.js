@@ -1,26 +1,55 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import '../css/Dashboard.css';
 
-function PostQuestion() {
+const PostQuestion = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios.post('http://localhost:5000/questions', { title, body })
-      .then(response => {
-        setTitle('');
-        setBody('');
-      })
-      .catch(error => console.error('Error posting question:', error));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const userId = '2'; // Assignation directe de la valeur userId
+
+    // Vérifiez que tous les champs requis sont présents
+    if (!title || !body || !userId) {
+      console.error('Tous les champs sont requis.');
+      return;
+    }
+
+    const questionData = {
+      title: title,
+      body: body,
+      userId: userId, // Inclure user_id dans les données envoyées
+    };
+
+    console.log('Données envoyées:', questionData); // Ajout de console.log pour déboguer
+
+    try {
+      const response = await fetch('http://localhost:5000/questions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(questionData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error('Erreur de réponse:', data); // Ajout de console.log pour déboguer la réponse
+        throw new Error(data.error || 'Something went wrong');
+      }
+
+      console.log('Question postée avec succès', data);
+    } catch (error) {
+      console.error('Erreur lors de la publication de la question', error);
+    }
   };
 
   return (
     <form className="post-question-form" onSubmit={handleSubmit}>
       <h2>Poser une question</h2>
       <div className="form-group">
-        <label htmlFor="title">Titre</label>
+        <label>Titre</label>
         <input 
           type="text" 
           id="title" 
@@ -30,7 +59,7 @@ function PostQuestion() {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="body">Contenu</label>
+        <label>Contenu</label>
         <textarea 
           id="body" 
           value={body} 
@@ -41,6 +70,6 @@ function PostQuestion() {
       <button type="submit">Poster</button>
     </form>
   );
-}
+};
 
 export default PostQuestion;
