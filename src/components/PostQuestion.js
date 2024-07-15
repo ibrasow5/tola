@@ -40,6 +40,11 @@ const PostQuestion = () => {
       }
 
       console.log('Question postée avec succès', data);
+      
+      // Réinitialiser les champs après soumission réussie
+      setTitle('');
+      setBody('');
+
     } catch (error) {
       console.error('Erreur lors de la publication de la question', error);
     }
