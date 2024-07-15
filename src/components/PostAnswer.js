@@ -7,7 +7,7 @@ function PostAnswer({ questionId }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:5000/answers', { userId: 1, questionId, body })  // Assume userId is 1 for this example
+    axios.post('http://localhost:5000/answers', { userId: 1, questionId, body })
       .then(response => {
         setBody('');
       })
@@ -16,17 +16,16 @@ function PostAnswer({ questionId }) {
 
   return (
     <form className="post-answer-form" onSubmit={handleSubmit}>
-      <h3>Poster une réponse</h3>
       <div className="form-group">
-        <textarea 
-          id="body" 
-          value={body} 
-          onChange={(e) => setBody(e.target.value)} 
-          required 
-          placeholder="Votre réponse..."
+        <label htmlFor="body">Votre réponse</label>
+        <textarea
+          id="body"
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+          required
         />
       </div>
-      <button type="submit">Répondre</button>
+      <button type="submit">Poster</button>
     </form>
   );
 }

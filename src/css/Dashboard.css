@@ -32,17 +32,23 @@
     margin-bottom: 20px;
   }
 
-  .question-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #ffffff;
+  .question-item {
+    background-color: #1e1e1e;
+    border: 1px solid #ddd;
+    padding: 10px;
     margin-bottom: 10px;
   }
   
-  .question-body {
-    font-size: 16px;
-    color: #ffffff;
-    margin-bottom: 20px;
+  .question-item h3 {
+    cursor: pointer;
+  }
+  
+  .question-item p {
+    margin: 10px 0;
+  }
+  
+  .answers {
+    margin-top: 10px;
   }
 
   .post-question-form {
@@ -89,54 +95,12 @@
   }
 
   .post-answer-form {
-    margin: 20px 0;
-  }
-  
-  .post-answer-form .form-group {
-    margin-bottom: 10px;
-  }
-  
-  .post-answer-form textarea {
-    width: 100%;
-    height: 40px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .post-answer-form button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .post-answer-form button:hover {
-    background-color: #0056b3;
-  }
-
-  .answer-container {
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .comments-list {
     margin-top: 10px;
-  }
-  
-  .post-comment-form {
-    margin: 20px 0;
-  }
-  
-  .post-comment-form .form-group {
-    margin-bottom: 10px;
-  }
-  
-  .post-comment-form textarea {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }  
+
+  .post-answer-form textarea {
     width: 100%;
     height: 60px;
     padding: 10px;
@@ -144,42 +108,7 @@
     border-radius: 4px;
   }
   
-  .post-comment-form button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .post-comment-form button:hover {
-    background-color: #0056b3;
-  }
-
-  .comment-container {
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
   .vote-container {
-    display: flex;
-    gap: 10px;
     margin-top: 10px;
-  }
-  
-  .vote-container button {
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .vote-container button:hover {
-    background-color: #0056b3;
   }
   

@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import Logo from '../Tola5.png';
 import axios from 'axios';
 import PostQuestion from './PostQuestion';
-import PostAnswer from './PostAnswer';
-import PostComment from './PostComment';
 import Question from './Question';
 import '../css/Dashboard.css';
 
@@ -30,10 +28,10 @@ function Dashboard() {
             <div className="post-question-container">
               <PostQuestion />
             </div>
-              <div className="questions-list">
-                {questions.map(question => (
-                  <Question key={question.id} question={question} />
-                ))}
+            <div className="questions-list">
+              {questions.sort((a, b) => b.upvotes - a.upvotes).map(question => (
+                <Question key={question.id} question={question} />
+              ))}
               </div>
             </div>
         </>
