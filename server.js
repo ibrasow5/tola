@@ -75,6 +75,45 @@ app.post('/login', async (req, res) => {
   });
 });
 
+// Route pour récupérer une question par son ID
+app.get('/questions/:id', (req, res) => {
+  const questionId = req.params.id;
+
+  // Requête SQL pour récupérer la question par son ID
+  const sql = `
+    SELECT q.id AS question_id, q.title AS question_title, q.body AS question_body,
+           a.id AS answer_id, a.body AS answer_body
+    FROM questions q
+    LEFT JOIN answers a ON q.id = a.question_id
+    WHERE q.id = ?
+  `;
+
+  db.query(sql, [questionId], (err, results) => {
+    if (err) {
+      console.error("Erreur lors de la récupération de la question:", err);
+      return res.status(500).json({ error: 'Erreur serveur' });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Question non trouvée' });
+    }
+
+    // Traiter les résultats SQL pour structurer la réponse
+    const question = {
+      id: results[0].question_id,
+      title: results[0].question_title,
+      body: results[0].question_body,
+      answers: results.filter(row => row.answer_id !== null).map(row => ({
+        id: row.answer_id,
+        body: row.answer_body
+      }))
+    };
+
+    // Répondre avec la question et ses réponses
+    res.status(200).json(question);
+  });
+});
+
 // Post a question
 app.post('/questions', (req, res) => {
   console.log('Données reçues :', req.body);

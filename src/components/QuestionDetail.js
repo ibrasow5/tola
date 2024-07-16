@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Answer from './Answer';
-import PostAnswer from './PostAnswer';
-import '../css/Dashboard.css';
 
 function QuestionDetail() {
   const { id } = useParams();
@@ -12,23 +9,25 @@ function QuestionDetail() {
   useEffect(() => {
     axios.get(`http://localhost:5000/questions/${id}`)
       .then(response => setQuestion(response.data))
-      .catch(error => console.error('Error fetching question:', error));
+      .catch(error => console.error('Erreur lors de la récupération de la question:', error));
   }, [id]);
 
   if (!question) {
-    return <div>Loading...</div>;
+    return <div>Chargement en cours...</div>;
   }
 
   return (
-    <div className="question-detail">
+    <div>
       <h2>{question.title}</h2>
       <p>{question.body}</p>
-      <div className="answers">
+      <h3>Réponses :</h3>
+      <ul>
         {question.answers.map(answer => (
-          <Answer key={answer.id} answer={answer} />
+          <li key={answer.id}>
+            <p>{answer.body}</p>
+          </li>
         ))}
-      </div>
-      <PostAnswer questionId={question.id} />
+      </ul>
     </div>
   );
 }
