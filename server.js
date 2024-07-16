@@ -155,15 +155,13 @@ app.post('/comments', (req, res) => {
   });
 });
 
-// Vote on a question or answer
 // POST endpoint for handling votes
 app.post('/votes', (req, res) => {
   const { userId, type, id, voteType } = req.body;
   const checkVoteSql = 'SELECT * FROM votes WHERE user_id = ? AND type = ? AND item_id = ?';
   const insertVoteSql = 'INSERT INTO votes (user_id, type, item_id, vote_type) VALUES (?, ?, ?, ?)';
-  const updateVoteSql = 'UPDATE votes SET vote_type = ? WHERE user_id = ? AND type = ? AND item_id = ?';
+  const deleteVoteSql = 'DELETE FROM votes WHERE user_id = ? AND type = ? AND item_id = ?';
 
-  // Check if the user has already voted
   db.query(checkVoteSql, [userId, type, id], (err, results) => {
     if (err) {
       console.error('Error checking vote:', err);
@@ -171,14 +169,26 @@ app.post('/votes', (req, res) => {
     }
 
     if (results.length > 0) {
-      // User has already voted, update the vote
-      db.query(updateVoteSql, [voteType, userId, type, id], (err, result) => {
-        if (err) {
-          console.error('Error updating vote:', err);
-          return res.status(500).json({ error: 'Server error' });
-        }
-        res.status(200).json({ message: 'Vote updated successfully' });
-      });
+      // User has already voted
+      if (results[0].vote_type === voteType) {
+        // Same vote type, remove the vote
+        db.query(deleteVoteSql, [userId, type, id], (err, result) => {
+          if (err) {
+            console.error('Error deleting vote:', err);
+            return res.status(500).json({ error: 'Server error' });
+          }
+          res.status(200).json({ message: 'Vote removed successfully' });
+        });
+      } else {
+        // Different vote type, update the vote
+        db.query(updateVoteSql, [voteType, userId, type, id], (err, result) => {
+          if (err) {
+            console.error('Error updating vote:', err);
+            return res.status(500).json({ error: 'Server error' });
+          }
+          res.status(200).json({ message: 'Vote updated successfully' });
+        });
+      }
     } else {
       // User hasn't voted yet, insert a new vote
       db.query(insertVoteSql, [userId, type, id, voteType], (err, result) => {
@@ -193,7 +203,7 @@ app.post('/votes', (req, res) => {
 });
 
 
-// Get questions with answers and comments
+// Get questions with answers 
 app.get('/questions', (req, res) => {
   const sql = `
     SELECT q.id AS question_id, q.title AS question_title, q.body AS question_body, u.email AS user_email,
@@ -263,6 +273,25 @@ app.get('/questions', (req, res) => {
     res.status(200).json(questions);
   });
 });
+
+app.get('/questions', (req, res) => {
+  const getQuestionsSql = `
+    SELECT q.*, 
+    (SELECT COUNT(*) FROM votes v WHERE v.item_id = q.id AND v.type = 'question' AND v.vote_type = 'upvote') AS upvotes,
+    (SELECT COUNT(*) FROM votes v WHERE v.item_id = q.id AND v.type = 'question' AND v.vote_type = 'downvote') AS downvotes
+    FROM questions q
+    ORDER BY upvotes DESC, downvotes ASC
+  `;
+
+  db.query(getQuestionsSql, (err, results) => {
+    if (err) {
+      console.error('Error fetching questions:', err);
+      return res.status(500).json({ error: 'Server error' });
+    }
+    res.status(200).json(results);
+  });
+});
+
 
 
 app.listen(port, () => {
