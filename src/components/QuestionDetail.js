@@ -28,7 +28,7 @@ function QuestionDetail() {
     <>
       <header className="home-header">
         <div className="logo-container">
-          <img src={Logo} alt="Logo Tola" className="logo" width="100" height="auto" />
+          <a href="../dashboard"><img src={Logo} alt="Logo Tola" className="logo" width="100" height="auto" /></a>
         </div>
       </header>
       <div className="logout-container">
