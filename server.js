@@ -170,7 +170,7 @@ app.post('/votes', (req, res) => {
 // Get questions with answers and comments
 app.get('/questions', (req, res) => {
   const sql = `
-    SELECT q.id, q.title, q.body, u.email AS user_email,
+    SELECT q.id AS question_id, q.title AS question_title, q.body AS question_body, u.email AS user_email,
            a.id AS answer_id, a.body AS answer_body, a.user_id AS answer_user_id,
            c.id AS comment_id, c.body AS comment_body, c.user_id AS comment_user_id
     FROM questions q
@@ -179,15 +179,65 @@ app.get('/questions', (req, res) => {
     LEFT JOIN comments c ON a.id = c.answer_id
     ORDER BY q.id DESC, a.id ASC, c.id ASC;
   `;
+
   db.query(sql, (err, results) => {
     if (err) {
       console.error("Error fetching questions:", err);
       res.status(500).send('Server error');
-    } else {
-      res.status(200).json(results);
+      return;
     }
+
+    // Structure des questions avec leurs réponses et commentaires
+    const questionsMap = new Map();
+
+    results.forEach(row => {
+      const {
+        question_id, question_title, question_body, user_email,
+        answer_id, answer_body, answer_user_id,
+        comment_id, comment_body, comment_user_id
+      } = row;
+
+      if (!questionsMap.has(question_id)) {
+        questionsMap.set(question_id, {
+          id: question_id,
+          title: question_title,
+          body: question_body,
+          user_email: user_email,
+          answers: []
+        });
+      }
+
+      const question = questionsMap.get(question_id);
+
+      if (answer_id) {
+        let answer = question.answers.find(ans => ans.id === answer_id);
+        if (!answer) {
+          answer = {
+            id: answer_id,
+            body: answer_body,
+            user_id: answer_user_id,
+            comments: []
+          };
+          question.answers.push(answer);
+        }
+
+        if (comment_id) {
+          answer.comments.push({
+            id: comment_id,
+            body: comment_body,
+            user_id: comment_user_id
+          });
+        }
+      }
+    });
+
+    // Convertir la Map en tableau
+    const questions = Array.from(questionsMap.values());
+
+    res.status(200).json(questions);
   });
 });
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
