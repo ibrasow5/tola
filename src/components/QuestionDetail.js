@@ -31,19 +31,17 @@ function QuestionDetail() {
           <h2 className="question-title">{question.title}</h2>
           <p className="question-body">{question.body}</p>
         </div>
-        <div className="answers-section">
-          <h3>Réponses :</h3>
-        </div>
+        <h3>Réponses :</h3>
         {question.answers.length === 0 ? (
-            <p>Aucune réponse à cette question</p>
-          ) : (
-            <div className="answer-container">
-              {question.answers.map(answer => (
-                <div key={answer.id} className="answer-item">
-                  <p className="answer-body">{answer.body}</p>
-                </div>
-              ))}
-        </div>
+          <p>Aucune réponse à cette question</p>
+        ) : (
+          question.answers.map(answer => (
+            <div key={answer.id} className="answers-section">
+              <div className="answer-item">
+                <p className="answer-body">{answer.body}</p>
+              </div>
+            </div>
+          ))
         )}
       </div>
     </>
