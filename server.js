@@ -203,17 +203,15 @@ app.post('/votes', (req, res) => {
 });
 
 
-// Get questions with answers 
+// Endpoint pour récupérer les questions avec réponses
 app.get('/questions', (req, res) => {
   const sql = `
     SELECT q.id AS question_id, q.title AS question_title, q.body AS question_body, u.email AS user_email,
-           a.id AS answer_id, a.body AS answer_body, a.user_id AS answer_user_id,
-           c.id AS comment_id, c.body AS comment_body, c.user_id AS comment_user_id
+           a.id AS answer_id, a.body AS answer_body, a.user_id AS answer_user_id
     FROM questions q
     LEFT JOIN users u ON q.user_id = u.id
     LEFT JOIN answers a ON q.id = a.question_id
-    LEFT JOIN comments c ON a.id = c.answer_id
-    ORDER BY q.id DESC, a.id ASC, c.id ASC;
+    ORDER BY q.id DESC, a.id ASC;
   `;
 
   db.query(sql, (err, results) => {
@@ -223,14 +221,13 @@ app.get('/questions', (req, res) => {
       return;
     }
 
-    // Structure des questions avec leurs réponses et commentaires
+    // Structure des questions avec leurs réponses
     const questionsMap = new Map();
 
     results.forEach(row => {
       const {
         question_id, question_title, question_body, user_email,
-        answer_id, answer_body, answer_user_id,
-        comment_id, comment_body, comment_user_id
+        answer_id, answer_body, answer_user_id
       } = row;
 
       if (!questionsMap.has(question_id)) {
@@ -246,24 +243,11 @@ app.get('/questions', (req, res) => {
       const question = questionsMap.get(question_id);
 
       if (answer_id) {
-        let answer = question.answers.find(ans => ans.id === answer_id);
-        if (!answer) {
-          answer = {
-            id: answer_id,
-            body: answer_body,
-            user_id: answer_user_id,
-            comments: []
-          };
-          question.answers.push(answer);
-        }
-
-        if (comment_id) {
-          answer.comments.push({
-            id: comment_id,
-            body: comment_body,
-            user_id: comment_user_id
-          });
-        }
+        question.answers.push({
+          id: answer_id,
+          body: answer_body,
+          user_id: answer_user_id
+        });
       }
     });
 
@@ -273,6 +257,7 @@ app.get('/questions', (req, res) => {
     res.status(200).json(questions);
   });
 });
+
 
 app.get('/questions', (req, res) => {
   const getQuestionsSql = `
