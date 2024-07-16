@@ -22,7 +22,7 @@ function Question({ question }) {
         <button onClick={toggleAnswerForm}>
           {showAnswerForm ? 'Annuler' : 'Répondre'}
         </button>
-        <Vote userId={1} type="question" id={question.id} />
+        <Vote userId={2} type="question" id={question.id} />
       </div>
       {showAnswerForm && <PostAnswer questionId={question.id} />}
     </div>

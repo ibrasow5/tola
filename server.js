@@ -156,16 +156,42 @@ app.post('/comments', (req, res) => {
 });
 
 // Vote on a question or answer
+// POST endpoint for handling votes
 app.post('/votes', (req, res) => {
   const { userId, type, id, voteType } = req.body;
-  const sql = `INSERT INTO votes (user_id, ${type}_id, vote_type) VALUES (?, ?, ?)`;
-  db.query(sql, [userId, id, voteType], (err, result) => {
+  const checkVoteSql = 'SELECT * FROM votes WHERE user_id = ? AND type = ? AND item_id = ?';
+  const insertVoteSql = 'INSERT INTO votes (user_id, type, item_id, vote_type) VALUES (?, ?, ?, ?)';
+  const updateVoteSql = 'UPDATE votes SET vote_type = ? WHERE user_id = ? AND type = ? AND item_id = ?';
+
+  // Check if the user has already voted
+  db.query(checkVoteSql, [userId, type, id], (err, results) => {
     if (err) {
-      return res.status(500).json({ error: 'Error voting' });
+      console.error('Error checking vote:', err);
+      return res.status(500).json({ error: 'Server error' });
     }
-    res.status(201).json({ message: 'Vote recorded successfully' });
+
+    if (results.length > 0) {
+      // User has already voted, update the vote
+      db.query(updateVoteSql, [voteType, userId, type, id], (err, result) => {
+        if (err) {
+          console.error('Error updating vote:', err);
+          return res.status(500).json({ error: 'Server error' });
+        }
+        res.status(200).json({ message: 'Vote updated successfully' });
+      });
+    } else {
+      // User hasn't voted yet, insert a new vote
+      db.query(insertVoteSql, [userId, type, id, voteType], (err, result) => {
+        if (err) {
+          console.error('Error inserting vote:', err);
+          return res.status(500).json({ error: 'Server error' });
+        }
+        res.status(201).json({ message: 'Vote recorded successfully' });
+      });
+    }
   });
 });
+
 
 // Get questions with answers and comments
 app.get('/questions', (req, res) => {

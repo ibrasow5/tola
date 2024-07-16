@@ -12,12 +12,18 @@ function Vote({ userId, type, id }) {
   }, [type, id]);
 
   const handleVote = (voteType) => {
+    if (localStorage.getItem(`${type}_${id}_voted`)) {
+      alert('Vous avez déjà voté pour cette question/réponse.');
+      return;
+    }
+
     axios.post('http://localhost:5000/votes', { userId, type, id, voteType })
       .then(response => {
         setVotes(prevVotes => ({
           ...prevVotes,
           [voteType === 'upvote' ? 'upvotes' : 'downvotes']: prevVotes[voteType === 'upvote' ? 'upvotes' : 'downvotes'] + 1
         }));
+        localStorage.setItem(`${type}_${id}_voted`, true);
       })
       .catch(error => console.error('Error voting:', error));
   };
