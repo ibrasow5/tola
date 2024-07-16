@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../css/login.css';
 import Logo from '../Tola5.png';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -56,6 +57,7 @@ function Login() {
             required
           />
           <button className="auth-form-button" type="submit">Se connecter</button>
+          <div>Pas de compte? Inscrivez-vous <Link to="/signup">ici</Link></div>
         </form>
       </main>
     </>

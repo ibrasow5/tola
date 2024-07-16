@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../Tola5.png';
+import { Link } from 'react-router-dom';
 
 function Signup() {
   const [email, setEmail] = useState('');
@@ -73,6 +74,7 @@ function Signup() {
           </div>
 
           <button className="auth-form-button" type="submit">S'inscrire</button>
+          <div>Déjà un compte? Connectez-vous <Link to="/login">ici</Link></div>
         </form>
       </main>
     </>
