@@ -25,6 +25,7 @@ function QuestionDetail() {
         </div>
       </header>
       <div className="dashboard-main">
+        <h1>Réponses à la question</h1>
         <div className="question-container">
           <h2 className="question-title">{question.title}</h2>
           <p className="question-body">{question.body}</p>
@@ -32,13 +33,17 @@ function QuestionDetail() {
         <div className="answers-section">
           <h3>Réponses :</h3>
         </div>
-        <div className="answer-container"> 
-            {question.answers.map(answer => (
-              <p key={answer.id} className="answer-item">
-                <p className="answer-body">{answer.body}</p>
-              </p>
-            ))}
+        {question.answers.length === 0 ? (
+            <p>Aucune réponse à cette question</p>
+          ) : (
+            <div className="answer-container">
+              {question.answers.map(answer => (
+                <div key={answer.id} className="answer-item">
+                  <p className="answer-body">{answer.body}</p>
+                </div>
+              ))}
         </div>
+        )}
       </div>
     </>
   );

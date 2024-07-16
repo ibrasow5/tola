@@ -28,6 +28,7 @@ function Dashboard() {
             <div className="post-question-container">
               <PostQuestion />
             </div>
+            <h1>Questions posées</h1>
             <div className="questions-list">
               {questions.sort((a, b) => b.upvotes - a.upvotes).map(question => (
                 <Question key={question.id} question={question} />
