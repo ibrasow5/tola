@@ -11,7 +11,7 @@ function QuestionDetail() {
   
   const handleLogout = () => {
     localStorage.clear();
-    navigate('../login'); 
+    navigate('/'); 
   };
 
   useEffect(() => {

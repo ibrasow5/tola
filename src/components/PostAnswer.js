@@ -7,7 +7,7 @@ function PostAnswer({ questionId }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const userId = '2'; 
+    const userId = '4'; 
 
     axios.post('http://localhost:5000/answers', { userId, questionId, body })
       .then(response => {

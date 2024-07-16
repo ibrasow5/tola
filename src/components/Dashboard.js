@@ -19,7 +19,7 @@ function Dashboard() {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate('../login'); 
+    navigate('/'); 
   };
 
   return (

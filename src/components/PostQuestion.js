@@ -7,7 +7,7 @@ const PostQuestion = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userId = '2'; // Assignation directe de la valeur userId
+    const userId = '4'; // Assignation directe de la valeur userId
 
     // Vérifiez que tous les champs requis sont présents
     if (!title || !body || !userId) {
