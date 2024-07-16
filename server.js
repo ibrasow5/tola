@@ -6,9 +6,11 @@ const app = express();
 const port = 5000;
 
 // Middleware
-app.use(cors({
-  origin: 'http://localhost:3000' // Assurez-vous que cette origine correspond à celle de votre frontend
-}));
+const corsOptions = {
+  origin: '*',
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Database connection
